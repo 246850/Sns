@@ -28,7 +28,7 @@ namespace Sns.Domains.Entities.Configurations
                 .HasColumnType("varchar(50)")
                 .HasComment("名称")
                 .HasCharSet("utf8mb4")
-                .HasCollation("utf8mb4_0900_ai_ci");
+                .HasCollation("utf8mb4_general_ci");
 
             OnConfigurePartial(entity);
         }
