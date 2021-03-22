@@ -15,15 +15,15 @@
     <form asp-controller="about" asp-action="feedback" method="post" id="form_0">
         <div class="form-group">
             <label for="@Html.IdFor(model=> model.Name)">您的名字</label>
-            <input type="email" class="form-control" asp-for="Name" placeholder="如：张三">
+            <input type="text" class="form-control" asp-for="Name" placeholder="如：张三">
         </div>
         <div class="form-group">
             <label for="@Html.IdFor(model=> model.Contact)">联系方式</label>
-            <input type="password" class="form-control" asp-for="Contact" placeholder="手机号、微信号、QQ号、邮箱任一即可">
+            <input type="text" class="form-control" asp-for="Contact" placeholder="手机号、微信号、QQ号、邮箱任一即可">
         </div>
         <div class="form-group">
             <label for="@Html.IdFor(model=> model.Content)">反馈内容</label>
-            <input type="password" class="form-control" asp-for="Content" placeholder="此处输入内容">
+            <textarea class="form-control" asp-for="Content" placeholder="此处输入内容"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">提交</button>
         <small class="form-text text-muted">注：本站不会泄露用户个人隐私信息</small>

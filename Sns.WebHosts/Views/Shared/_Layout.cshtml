@@ -88,7 +88,7 @@
     <mini-profiler />
     <footer class="border-top footer text-muted pt-3 pb-3">
         <div class="container">
-            &copy; 2021 - <a asp-area="" asp-controller="article" asp-action="list">端桥铺网</a>
+            &copy; 2021 - @DateTime.Now.Year<a asp-area="" asp-controller="article" asp-action="list">端桥铺网</a>
         </div>
     </footer>
     <script src="~/jquery/dist/jquery.min.js"></script>
@@ -118,7 +118,8 @@
             return true;
         }
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()  // tooltip
+            $('[data-toggle="tooltip"]').tooltip();  // tooltip
+            $('[data-toggle="popover"]').popover();  // popover
         })
     </script>
     @await RenderSectionAsync("Scripts", required: false)

@@ -173,7 +173,7 @@
                     <div class="d-flex flex-row justify-content-between">
                         <button class="btn btn-success follow_item" onclick="doFollow(@Model.AccountInfo.Id, this)" style="display:@(Model.AccountInfo.IsFollow ? "none": "block")"><i class="bi bi-plus"></i>添加关注</button>
                         <button class="btn btn-secondary follow_item" onclick="doFollow(@Model.AccountInfo.Id, this)" style="display:@(Model.AccountInfo.IsFollow ? "block": "none")"><i class="bi bi-x"></i>取消关注</button>
-                        <button class="btn btn-primary"><i class="bi bi-chat-fill"></i> 发私信</button>
+                        <button class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="敬请期待"><i class="bi bi-chat-fill"></i> 发私信</button>
                     </div>
                 </div>
             </div>
