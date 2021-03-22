@@ -11,7 +11,7 @@
         <a class="nav-link active" asp-controller="about" asp-action="feedback">反馈建议</a>
     </li>
 </ul>
-<section>
+<section class="mb-3">
     <form asp-controller="about" asp-action="feedback" method="post" id="form_0">
         <div class="form-group">
             <label for="@Html.IdFor(model=> model.Name)">您的名字</label>
