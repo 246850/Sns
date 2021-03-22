@@ -1,0 +1,183 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>22f50fb9-4614-4050-9ce4-75ae72ee922f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Update="Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Article\Detail.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Article\Detail.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Article\Publish.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap-grid.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap-reboot.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\css\bootstrap.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\js\bootstrap.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\js\bootstrap.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\js\bootstrap.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\js\bootstrap.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\bootstrap\dist\js\bootstrap.min.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\normalize.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\jquery\dist\jquery.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\jquery\dist\jquery.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\jquery\dist\jquery.min.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\jquery\LICENSE.txt" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\auto-render.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\auto-render.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\auto-render.mjs" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\copy-tex.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\copy-tex.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\copy-tex.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\copy-tex.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\copy-tex.mjs" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\mathtex-script-type.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\mathtex-script-type.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\mathtex-script-type.mjs" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\mhchem.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\mhchem.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\mhchem.mjs" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\render-a11y-string.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\render-a11y-string.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\contrib\render-a11y-string.mjs" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_AMS-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_AMS-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_AMS-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Caligraphic-Bold.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Caligraphic-Bold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Caligraphic-Bold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Caligraphic-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Caligraphic-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Caligraphic-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Fraktur-Bold.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Fraktur-Bold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Fraktur-Bold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Fraktur-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Fraktur-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Fraktur-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Bold.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Bold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Bold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-BoldItalic.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-BoldItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-BoldItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Italic.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Italic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Italic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Main-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Math-BoldItalic.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Math-BoldItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Math-BoldItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Math-Italic.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Math-Italic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Math-Italic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Bold.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Bold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Bold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Italic.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Italic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Italic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_SansSerif-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Script-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Script-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Script-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size1-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size1-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size1-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size2-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size2-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size2-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size3-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size3-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size3-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size4-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size4-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Size4-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Typewriter-Regular.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Typewriter-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\fonts\KaTeX_Typewriter-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\katex.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\katex.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\katex.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\katex.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\katex.mjs" />
+    <_ContentIncludedByDefault Remove="wwwroot\katex\README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Article\Publish.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.12" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
+    <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.2.22" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Calamus.AspNetCore\Calamus.AspNetCore.csproj" />
+    <ProjectReference Include="..\Calamus.Caching\Calamus.Caching.csproj" />
+    <ProjectReference Include="..\Calamus.Data\Calamus.Data.csproj" />
+    <ProjectReference Include="..\Calamus.Infrastructure\Calamus.Infrastructure.csproj" />
+    <ProjectReference Include="..\Calamus.Ioc\Calamus.Ioc.csproj" />
+    <ProjectReference Include="..\Calamus.Result\Calamus.Result.csproj" />
+    <ProjectReference Include="..\Sns.Domains\Sns.Domains.csproj" />
+    <ProjectReference Include="..\Sns.IServices\Sns.IServices.csproj" />
+    <ProjectReference Include="..\Sns.Models\Sns.Models.csproj" />
+    <ProjectReference Include="..\Sns.Services\Sns.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\layer\layer.js" />
+    <None Include="wwwroot\layer\mobile\layer.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\MyHead\" />
+  </ItemGroup>
+
+</Project>

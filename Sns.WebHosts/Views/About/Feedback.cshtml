@@ -1,0 +1,74 @@
+﻿@model FeedbackCreateRequestDTO
+@{
+    Layout = "../Shared/_TopicLayout";
+    ViewData["Title"] = "反馈建议";
+}
+<ul class="nav mb-3">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="about" asp-action="intro">关于本站</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" asp-controller="about" asp-action="feedback">反馈建议</a>
+    </li>
+</ul>
+<section>
+    <form asp-controller="about" asp-action="feedback" method="post" id="form_0">
+        <div class="form-group">
+            <label for="@Html.IdFor(model=> model.Name)">您的名字</label>
+            <input type="email" class="form-control" asp-for="Name" placeholder="如：张三">
+        </div>
+        <div class="form-group">
+            <label for="@Html.IdFor(model=> model.Contact)">联系方式</label>
+            <input type="password" class="form-control" asp-for="Contact" placeholder="手机号、微信号、QQ号、邮箱任一即可">
+        </div>
+        <div class="form-group">
+            <label for="@Html.IdFor(model=> model.Content)">反馈内容</label>
+            <input type="password" class="form-control" asp-for="Content" placeholder="此处输入内容">
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+        <small class="form-text text-muted">注：本站不会泄露用户个人隐私信息</small>
+    </form>
+</section>
+
+@section Scripts
+{
+    <script src="~/jquery/validation/jquery.validate.min.js"></script>
+    <script src="~/jquery/validation/jquery-validate.bootstrap-tooltip.js"></script>
+    <script src="~/jquery/validation/additional-methods.js"></script>
+    <script src="~/jquery/validation/messages_zh.min.js"></script>
+    <script src="~/jquery/jquery.form.min.js"></script>
+    <script>
+        let loading = false;
+        $("#form_0").validate({
+            rules: {
+                "@Html.IdFor(model=> model.Name)": {
+                    required:true,
+                    rangelength: [1, 8]
+                },
+                "@Html.IdFor(model=> model.Contact)": {
+                    required:true,
+                    rangelength: [1, 20]
+                },
+                "@Html.IdFor(model=> model.Content)": {
+                    required:true,
+                    rangelength: [1, 260]
+                }
+            },
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    beforeSubmit: function () {
+                        if (loading) return false;
+                        loading = true;
+                        return true;
+                    }, //提交前的回调函数
+                    success: function (res) {
+                        loading = false;
+                        layer.msg(res.msg);
+                        $("#@Html.IdFor(model=> model.Content)").val("");
+                    },  //提交成功后的回调函数
+                    dataType: "json", //html(默认), xml, script, json...接受服务端返回的类型
+                });
+            }
+        })
+    </script>
+}

@@ -1,0 +1,20 @@
+﻿@model List<TopicListResultDTO>
+@{ 
+    Layout = "../Shared/_TopicLayout";
+    ViewData["Title"] = "热议话题";
+}
+<ul class="nav mb-3" id="my_tab">
+    <li class="nav-item">
+        <a class="nav-link active" asp-controller="topic" asp-action="hot">热议话题</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="topic" asp-action="all">最新话题</a>
+    </li>
+</ul>
+
+<section class="d-flex flex-row flex-wrap">
+    @foreach (var item in Model)
+    {
+        <a asp-controller="article" asp-action="list" asp-route-topicName="@item.Name" title="@item.Name" class="mr-3 mb-3">@($"{item.Name}({item.ArticleCount})")</a>
+    }
+</section>

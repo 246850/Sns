@@ -1,0 +1,26 @@
+﻿@model IPagedList<AccountOfArticleResultDTO>
+@{
+    Layout = "../Shared/_TopicLayout";
+    ViewData["Title"] = "用户粉丝榜";
+}
+<ul class="nav mb-3">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="people" asp-action="all">最新</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" asp-controller="people" asp-action="popular">粉丝榜</a>
+    </li>
+</ul>
+
+<section class="d-flex flex-row flex-wrap">
+    @foreach (var item in Model)
+    {
+        <div class="mr-3 mb-3">
+            <a class="d-block text-center" asp-controller="people" asp-action="article" asp-route-id="@item.Id">
+                <img src="@item.Avatar" class="head rounded" />
+                <span class="d-block">@item.NickName（@item.FansCount）</span>
+            </a>
+        </div>
+    }
+</section>
+@await Component.InvokeAsync("AspNetCorePager", Model.Pager)

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Calamus.Infrastructure\Calamus.Infrastructure.csproj" />
+    <ProjectReference Include="..\Calamus.Ioc\Calamus.Ioc.csproj" />
+    <ProjectReference Include="..\Calamus.Result\Calamus.Result.csproj" />
+  </ItemGroup>
+
+</Project>

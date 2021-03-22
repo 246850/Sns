@@ -1,0 +1,11 @@
+﻿@model List<TopicListResultDTO>
+<strong class="d-block mb-3">
+    热议话题
+    <a asp-controller="topic" asp-action="hot" title="更多" class="text-primary"><i class="bi bi-chevron-double-right"></i></a>
+</strong>
+<section class="d-flex flex-row flex-wrap">
+    @foreach (var item in Model)
+    {
+        <a asp-controller="article" asp-action="list" asp-route-topicName="@item.Name" title="@item.Name" class="mr-3 mb-3">@($"{item.Name}({item.ArticleCount})")</a>
+    }
+</section>

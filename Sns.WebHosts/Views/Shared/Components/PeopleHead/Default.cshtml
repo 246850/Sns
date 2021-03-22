@@ -1,0 +1,39 @@
+﻿@model AccountDetailResultDTO
+<style>
+    p{margin-bottom:.3rem}
+</style>
+<div class="card mb-3 border-0">
+    <div class="row no-gutters">
+        <div class="col-sm-2 d-none d-md-block">
+            <a href="javascript:void(0)" class="d-block text-decoration-none">
+                <img src="@Model.Avatar" class="rounded-circle border border-dark" alt="@Model.NickName">
+            </a>
+        </div>
+        <div class="col-sm-10">
+            <div class="card-body p-0">
+                <h5 class="card-title"><strong>@Model.NickName</strong></h5>
+                <p class="card-text">@Model.Intro</p>
+                <p class="card-text"><small class="text-muted">注册于：@Model.CreateTime.ToString("yyyy年MM月dd日")</small></p>
+                <p class="card-text">
+                    <button class="btn btn-success btn-sm" onclick="doFollow(@Model.Id, this)" style="display:@(Model.IsFollowed ? "none": "block")"><i class="bi bi-plus"></i>添加关注</button>
+                    <button class="btn btn-secondary btn-sm" onclick="doFollow(@Model.Id, this)" style="display:@(Model.IsFollowed ? "block": "none")"><i class="bi bi-x"></i>取消关注</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let loading = false;
+    function doFollow(followId, element) {
+        if (loading) return;
+        loading = true;
+        $.post(`/follow/createOrRemove?followId=${followId}`, function (res) {
+            loading = false;
+            if (res.code === 0) {
+                $(element).hide().siblings().show();
+            } else {
+                layer.msg(res.msg);
+            }
+        });
+    }
+</script>

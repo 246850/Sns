@@ -1,0 +1,23 @@
+﻿@model IPagedList<ArticleListResultDTO>
+@{
+    Layout = "../Shared/_MyLayout";
+}
+
+@await Component.InvokeAsync("MyHead")
+@await Component.InvokeAsync("MyTab")
+<section>
+    @foreach (var item in Model)
+    {
+        <div class="card border-0 mb-3">
+            <div class="card-body p-0">
+                <h6 class="card-title mb-1"><a title="@item.Title" asp-controller="article" asp-action="detail" asp-route-id="@item.Id" class="text-decoration-none"><strong>@item.Title</strong></a></h6>
+                <p class="card-text text-muted">
+                    <span class="card-link">@item.CreateTime.ToString("yyyy.MM.dd")</span>
+                    <span class="card-link"><i class="bi bi-hand-thumbs-up-fill"></i>@item.ThumbupCount</span>
+                    <span class="card-link"><i class="bi bi-chat-fill"></i>@item.CommentCount</span>
+                </p>
+            </div>
+        </div>
+    }
+    @await Component.InvokeAsync("AspNetCorePager", Model.Pager)
+</section>

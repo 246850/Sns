@@ -1,0 +1,105 @@
+﻿@model AccountUpdatePasswordRequestDTO
+@{
+    Layout = "../Shared/_MyLayout";
+}
+@await Component.InvokeAsync("MyHead")
+@await Component.InvokeAsync("MyTab")
+<strong class="d-block mb-3">一句话介绍：</strong>
+<form id="form_0" method="post" asp-controller="my" asp-action="updateIntro">
+    <div class="input-group">
+        <input id="Intro" name="Intro" type="text" class="form-control" placeholder="150个字符长度，中文占3个长度" onkeydown="return doBanInputSapce(event)" value="@AuthModel.Intro">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">保存</button>
+        </div>
+    </div>
+</form>
+<hr />
+<strong class="d-block mb-3">修改密码：</strong>
+<form id="form_1" method="post" asp-controller="my" asp-action="UpdatePassword">
+    <div class="form-group">
+        <label for="@Html.IdFor(model=> model.Password)">原始密码</label>
+        <input type="password" class="form-control" placeholder="区分大小写" asp-for="Password" onkeydown="return doBanInputSapce(event)">
+    </div>
+    <div class="form-group">
+        <label for="@Html.IdFor(model=> model.Password)">新的密码</label>
+        <input type="password" class="form-control" placeholder="区分大小写" asp-for="Password1" onkeydown="return doBanInputSapce(event)">
+    </div>
+    <div class="form-group">
+        <label for="@Html.IdFor(model=> model.Password)">确认密码</label>
+        <input type="password" class="form-control" placeholder="" asp-for="Password2" onkeydown="return doBanInputSapce(event)">
+    </div>
+    <button type="submit" class="btn btn-primary">提交</button>
+</form>
+@section Scripts
+{
+    <script src="~/jquery/validation/jquery.validate.min.js"></script>
+    <script src="~/jquery/validation/jquery-validate.bootstrap-tooltip.js"></script>
+    <script src="~/jquery/validation/additional-methods.js"></script>
+    <script src="~/jquery/validation/messages_zh.min.js"></script>
+    <script src="~/jquery/jquery.form.min.js"></script>
+    <script>
+    $(function () {
+        let loading = false;
+
+        $("#form_0").validate({
+            rules: {
+                "Intro": {
+                    rangelength: [1, 150]
+                }
+            },
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    beforeSubmit: function () {
+                        if (loading) return false;
+                        loading = true;
+                        return true;
+                    }, //提交前的回调函数
+                    success: function (res) {
+                        loading = false;
+                        layer.msg(res.msg);
+                    },  //提交成功后的回调函数
+                    dataType: "json", //html(默认), xml, script, json...接受服务端返回的类型
+                });
+            }
+        })
+
+        $("#form_1").validate({
+            rules: {
+                "@Html.IdFor(model=> model.Password)": {
+                    required: true,
+                    password: true,
+                    rangelength: [6, 20]
+                },
+                "@Html.IdFor(model=> model.Password1)": {
+                    required: true,
+                    password: true,
+                    rangelength: [6, 20]
+                },
+                "@Html.IdFor(model=> model.Password2)": {
+                    required: true,
+                    equalTo: "#@Html.IdFor(model=> model.Password1)"
+                }
+            },
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    beforeSubmit: function () {
+                        if (loading) return false;
+                        loading = true;
+                        return true;
+                    }, //提交前的回调函数
+                    success: function (res) {
+                        loading = false;
+                        if (res.code === 0) {
+                            alert("密码已更新，请重新登录")
+                            window.location.href = '/account/login';
+                        } else {
+                            layer.msg(res.msg);
+                        }
+                    },  //提交成功后的回调函数
+                    dataType: "json", //html(默认), xml, script, json...接受服务端返回的类型
+                });
+            }
+        })
+    })
+    </script>
+}

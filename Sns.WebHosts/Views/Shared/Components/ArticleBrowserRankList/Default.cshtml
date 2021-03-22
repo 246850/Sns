@@ -1,0 +1,12 @@
+﻿@model List<ArticleListResultDTO>
+<strong class="d-block mb-3">
+    30天阅读排行
+</strong>
+<ol class="widget-list">
+    @foreach (var item in Model)
+    {
+        <li>
+            <a class="text-decoration-none text-wrap" asp-controller="article" asp-action="detail" asp-route-id="@item.Id">@item.Title</a>
+        </li>
+    }
+</ol>

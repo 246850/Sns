@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Calamus.Ioc\Calamus.Ioc.csproj" />
+    <ProjectReference Include="..\Calamus.Result\Calamus.Result.csproj" />
+    <ProjectReference Include="..\Sns.Models\Sns.Models.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,39 @@
+﻿@model IPagedList<ArticleListResultDTO>
+@{
+    Layout = "../Shared/_MyLayout";
+}
+@await Component.InvokeAsync("MyHead")
+@await Component.InvokeAsync("MyTab")
+<section>
+    <p class="mb-3 text-muted">@Model.Pager.Total 篇文章</p>
+    @foreach (var item in Model)
+    {
+        <div class="card border-0 mb-3">
+            <div class="card-body p-0">
+                <h6 class="card-title mb-1"><a title="@item.Title" asp-controller="article" asp-action="detail" asp-route-id="@item.Id" class="text-decoration-none"><strong>@item.Title</strong></a></h6>
+                <p class="card-text text-muted">
+                    <span class="card-link">@item.CreateTime.ToString("yyyy.MM.dd")</span>
+                    <span class="card-link"><i class="bi bi-hand-thumbs-up-fill"></i>@item.ThumbupCount</span>
+                    <span class="card-link"><i class="bi bi-chat-fill"></i>@item.CommentCount</span>
+                    <a asp-controller="article" asp-action="publish" asp-route-id="@item.Id" class="card-link text-muted">编辑</a>
+                    <a href="javascript:void(0)" class="card-link text-muted" onclick="doDelete(@item.Id, this)">删除</a>
+                </p>
+            </div>
+        </div>
+    }
+    @await Component.InvokeAsync("AspNetCorePager", Model.Pager)
+</section>
+<script>
+    function doDelete(id, element) {
+        layer.confirm('确定删除文章吗', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.post(`/article/delete/${id}`, function (res) {
+                layer.msg(res.msg);
+                $(element).parent().parent().parent().remove();
+            })
+        }, function () {
+        });
+
+    }
+</script>

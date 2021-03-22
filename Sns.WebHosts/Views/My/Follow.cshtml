@@ -1,0 +1,35 @@
+﻿@model IPagedList<AccountOfFollowResultDTO>
+@{
+    Layout = "../Shared/_MyLayout";
+}
+
+@await Component.InvokeAsync("MyHead")
+@await Component.InvokeAsync("MyTab")
+<p class="mb-3 text-muted d-flex flex-row">
+    <span>@Model.Pager.Total 个关注</span>
+    <a href="javascript:void(0)" title="管理" class="ml-3 text-primary text-decoration-none" onclick="doManage()">管理</a>
+</p>
+<section class="d-flex flex-row flex-wrap">
+    @foreach (var item in Model)
+    {
+        <div class="mr-3 mb-3 text-center">
+            <a class="d-block" asp-controller="people" asp-action="article" asp-route-id="@item.Id">
+                <img src="@item.Avatar" class="head rounded" />
+                <span class="d-block">@item.NickName</span>
+            </a>
+            <a href="javascript:void(0)" title="取消关注" class="text-primary text-decoration-none cancel-dom" style="display:none" onclick="doCancelFollow(@item.Id, this)">取消关注</a>
+        </div>
+    }
+</section>
+@await Component.InvokeAsync("AspNetCorePager", Model.Pager)
+
+<script>
+    function doManage() {
+        $(".cancel-dom").toggle();
+    }
+    function doCancelFollow(followId, element) {
+        $.post(`/follow/remove?followId=${followId}`, function (res) {
+            $(element).parent().remove();
+        })
+    }
+</script>

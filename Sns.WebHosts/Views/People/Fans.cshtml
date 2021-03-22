@@ -1,0 +1,20 @@
+﻿@model IPagedList<AccountOfFollowResultDTO>
+@{
+    Layout = "../Shared/_PeopleLayout";
+}
+
+@await Component.InvokeAsync("PeopleHead", ViewBag.People)
+@await Component.InvokeAsync("PeopleTab")
+<p class="mb-3 text-muted">@Model.Pager.Total 个粉丝</p>
+<section class="d-flex flex-row flex-wrap">
+    @foreach (var item in Model)
+    {
+        <div class="mr-3 mb-3">
+            <a class="d-block text-center" asp-controller="people" asp-action="article" asp-route-id="@item.Id">
+                <img src="@item.Avatar" class="head rounded" />
+                <span class="d-block">@item.NickName</span>
+            </a>
+        </div>
+    }
+</section>
+@await Component.InvokeAsync("AspNetCorePager", Model.Pager)

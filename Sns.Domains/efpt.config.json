@@ -1,0 +1,74 @@
+﻿{
+   "CodeGenerationMode": 1,
+   "ContextClassName": "SnsdbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "Entities",
+   "OutputPath": "Entities",
+   "ProjectRootNamespace": "Sns.Domains",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "account",
+         "ObjectType": 0
+      },
+      {
+         "Name": "article",
+         "ObjectType": 0
+      },
+      {
+         "Name": "article_content",
+         "ObjectType": 0
+      },
+      {
+         "Name": "article_topic",
+         "ObjectType": 0
+      },
+      {
+         "Name": "comment",
+         "ObjectType": 0
+      },
+      {
+         "Name": "comment_thumb",
+         "ObjectType": 0
+      },
+      {
+         "Name": "favorite",
+         "ObjectType": 0
+      },
+      {
+         "Name": "feedback",
+         "ObjectType": 0
+      },
+      {
+         "Name": "follow",
+         "ObjectType": 0
+      },
+      {
+         "Name": "thumb",
+         "ObjectType": 0
+      },
+      {
+         "Name": "topic",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": ".snsdb1",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoNavigations": false,
+   "UseNodaTime": true,
+   "UseNullableReferences": false,
+   "UseSpatial": true
+}

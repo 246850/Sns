@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "个人中心";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 p-0 col-sm-12">
+            @RenderBody()
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0">
+                <div class="card-body p-0">
+                    <section class="card-text mb-1">
+                        <small class="text-muted d-block text-center mb-1">记录知识，交流心得！</small>
+                        <a asp-controller="article" asp-action="publish" class="btn btn-dark btn-block" title="记录知识，交流心得">
+                            <i class="bi bi-pencil-square"></i> 写文章
+                        </a>
+                    </section>
+                </div>
+            </div>
+            <hr />
+            @await Component.InvokeAsync("HotTopic", 10)
+            <hr />
+            @await Component.InvokeAsync("ArticleBrowserRankList", 10)
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @await RenderSectionAsync("Scripts", required: false)
+}

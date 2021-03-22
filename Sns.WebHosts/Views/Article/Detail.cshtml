@@ -1,0 +1,287 @@
+﻿@model ArticleDetailResultDTO
+@{ 
+    ViewData["Title"] = Model.Title;
+}
+<style type="text/css">
+    #article-body img{max-width:100%}
+    /*#article-body p{margin-bottom:.5rem}*/
+    .card-title{font-size:1.5rem; font-weight:bold}
+    .card-subtitle {font-size:1rem}
+    #article-body blockquote {border-left: 4px solid #ccc; padding:15px 15px; padding-right:0; background: url(../../images/blockquote.gif) no-repeat 15px -5px;}
+    #article-body ol, #article-body ul{list-style-position:inside; padding-left:0}
+</style>
+<link href="~/katex/katex.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 p-0">
+            <div class="card border-0 mb-3">
+                <div class="card-body p-0">
+                    <h3 class="card-title"><a asp-controller="article" asp-action="detail" asp-route-id="@Model.Id" title="@Model.Title" class="text-decoration-none">@Model.Title</a></h3>
+                    <h4 class="card-subtitle mt-2 mb-3 text-muted">
+                        <a asp-controller="people" asp-action="article" asp-route-id="@Model.AccountInfo.Id" class="d-inline-block text-decoration-none">
+                            <img src="@Model.AccountInfo.Avatar" class="rounded avatar" alt="@Model.AccountInfo.NickName">
+                            <span class="ml-2">@Model.AccountInfo.NickName</span>
+                        </a>
+                        @if (Model.CreateTime.Year == DateTime.Now.Year)
+                        {
+                            <span class="text-muted ml-2" title="发布于 @Model.CreateTime.ToString("yyyy年MM月dd日HH时mm分")">@Model.CreateTime.ToString("MM.dd HH:mm")</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted ml-2" title="发布于 @Model.CreateTime.ToString("yyyy年MM月dd日HH时mm分")">@Model.CreateTime.ToString("yyyy.MM.dd HH:mm")</span>
+                        }
+                        <span class="text-muted ml-2" title="阅读数"><i class="bi bi-eye-fill"></i>@Model.ViewCount</span>
+                        @if (AuthModel != null && AuthModel.Id == Model.AccountInfo.Id)
+                        {
+                            <a class="ml-2 text-primary d-none d-md-inline-block" asp-controller="article" asp-action="publish" asp-route-id="@Model.Id">编辑</a>
+                        }
+                    </h4>
+                    <article class="card-text mb-3" id="article-body">
+                        @Html.Raw(Model.Body)
+                    </article>
+                    <div class="text-center mb-3">
+                        <button class="btn btn-info btn-sm" onclick="doThumb(@Model.Id, this)">
+                            @if (Model.IsThumbup)
+                            {
+                                <text><i class="bi bi-hand-thumbs-up-fill text-warning"></i>赞(<span>@Model.ThumbupCount</span>)</text>
+                            }
+                            else
+                            {
+                                <text><i class="bi bi-hand-thumbs-up-fill"></i>赞(<span>@Model.ThumbupCount</span>)</text>
+                            }
+                        </button>
+                        <button class="btn btn-warning btn-sm" onclick="doFavorite(@Model.Id, this)">@(AuthModel != null && Model.IsFavorite ? "已收藏": "收藏")</button>
+                    </div>
+                    <div class="card-text mb-3">
+                        @if (Model.TopicInfo != null)
+                        {
+                            <a class="text-primary" asp-controller="article" asp-action="list" asp-route-topicName="@Model.TopicInfo.Name">#@Model.TopicInfo.Name</a>
+                        }
+                    </div>
+                    @if (Model.CreateTime != Model.LastUpdateTime)
+                    {
+                        <div class="text-danger">
+                            最后编辑于 @Model.LastUpdateTime.ToString("yyyy.MM.dd HH:mm")
+                        </div>
+                    }
+                </div>
+            </div>
+            <hr />
+            <div style="border-left: 3px solid black" class="pl-2 mb-3" id="comment"><strong>@Model.Comments.Pager.Total 条评论</strong></div>
+            @if (Model.Comments == null || Model.Comments.Count <= 0)
+            {
+                <div class="mb-3 text-muted">暂无评论。</div>
+            }
+            else
+            {
+                for (int i = 0; i < Model.Comments.Count; i++)
+                {
+                    CommentOfArticleDetailResultDTO item = Model.Comments[i];
+                    <div class="card border-top-0 border-left-0 border-right-0 mb-3 rounded-0">
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-row justify-content-between mb-1">
+                                <h4 class="card-subtitle mt-0">
+                                    <a asp-controller="people" asp-action="article" asp-route-id="@item.AccountInfo.Id" class="d-inline-block text-decoration-none">
+                                        <img src="@item.AccountInfo.Avatar" class="rounded avatar" alt="@item.AccountInfo.NickName">
+                                        <span class="ml-2">@item.AccountInfo.NickName</span>
+                                    </a>
+                                </h4>
+                                @if (item.CreateTime.Year == DateTime.Now.Year)
+                                {
+                                    <span class="align-bottom text-muted" title="@item.CreateTime.ToString("yyyy.MM.dd HH:mm")">@item.CreateTime.ToString("MM.dd HH:mm") #@(Model.Comments.Pager.RowNumber + i)楼</span>
+                                }
+                                else
+                                {
+                                    <span class="align-bottom text-muted" title="@item.CreateTime.ToString("yyyy.MM.dd HH:mm")">@item.CreateTime.ToString("yyyy.MM.dd HH:mm") #@(Model.Comments.Pager.RowNumber + i)楼</span>
+                                }
+                            </div>
+                            <article class="card-text mb-2">
+                                @if (item.QuoteInfo != null)
+                                {
+                                    <strong class="text-muted">@@@item.QuoteInfo.NickName</strong><br />
+                                }
+                                @Html.Raw(item.Body)
+                            </article>
+                            <div class="d-flex flex-row justify-content-between mb-2">
+                                <a href="javascript:void(0)" class="card-link text-secondary" onclick="doCommentThumb(@item.Id, this)">
+                                    @if (item.IsThumbup)
+                                    {
+                                        <i class="bi bi-hand-thumbs-up-fill text-warning"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-hand-thumbs-up-fill"></i>
+                                    }
+                                    <span>@item.ThumbupCount</span>
+                                </a>
+                                @if (AuthModel == null || AuthModel.Id != item.AccountInfo.Id)
+                                {
+                                    <a href="#quote_user" class="card-link text-secondary" onclick="doQuote(@item.AccountInfo.Id, '@item.AccountInfo.NickName')"><i class="bi bi-reply-fill"></i>回复</a>
+                                }
+                                @if (AuthModel != null && AuthModel.Id == item.AccountInfo.Id)
+                                {
+                                    <a href="javascript:void(0)" class="card-link text-secondary" onclick="doDeleteComment(@item.Id, this)">删除</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @await Component.InvokeAsync("AspNetCorePager", Model.Comments.Pager)
+            <form method="post" asp-controller="comment" asp-action="submit" onsubmit="return doComment()" class="mb-3">
+                <div style="border-left: 3px solid green" class="pl-2 mb-3"><strong>发表评论</strong><strong id="quote_user" class="text-danger ml-2"></strong></div>
+                <div class="form-group">
+                    <input type="hidden" name="returnUrl" value="/article/detail/@Model.Id" />
+                    <input type="hidden" name="quoteId" id="quote_id" value="0" />
+                    <input type="hidden" name="articleId" value="@Model.Id" />
+                    <textarea class="form-control" rows="5" name="body" id="comment-body" placeholder="@(AuthModel==null? "登录发表评论":"此处输入评论内容")"></textarea>
+                </div>
+                @if (AuthModel != null)
+                {
+                    <button type="submit" class="btn btn-primary">提交</button>
+                }
+                else
+                {
+                    <a class="btn btn-secondary" asp-controller="account" asp-action="login" asp-route-returnUrl="/article/detail/@Model.Id">登录</a>
+                }
+            </form>
+        </div>
+        <div class="col-sm-3">
+            <div class="card border-0">
+                <div class="card-body p-0">
+                    <h3 class="card-title">
+                        <a asp-controller="people" asp-action="article" asp-route-id="@Model.AccountInfo.Id" class="text-decoration-none">
+                            <img src="@Model.AccountInfo.Avatar" style="width:40px; height:40px" class="rounded">
+                            <span class="ml-2">@Model.AccountInfo.NickName</span>
+                        </a>
+                    </h3>
+                    <h4 class="card-subtitle mb-2 text-muted">
+                        @Model.AccountInfo.Intro
+                    </h4>
+                    <div class="card-text mb-2">
+                        <div class="d-flex flex-row justify-content-around">
+                            <div class="d-flex flex-column flex-fill text-center">
+                                <span class="text-muted">文章</span>
+                                <strong>@Model.AccountInfo.ArticleCount</strong>
+                            </div>
+                            <div class="d-flex flex-column flex-fill text-center">
+                                <span class="text-muted">关注者</span>
+                                <strong>@Model.AccountInfo.FansCount</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                        <button class="btn btn-success follow_item" onclick="doFollow(@Model.AccountInfo.Id, this)" style="display:@(Model.AccountInfo.IsFollow ? "none": "block")"><i class="bi bi-plus"></i>添加关注</button>
+                        <button class="btn btn-secondary follow_item" onclick="doFollow(@Model.AccountInfo.Id, this)" style="display:@(Model.AccountInfo.IsFollow ? "block": "none")"><i class="bi bi-x"></i>取消关注</button>
+                        <button class="btn btn-primary"><i class="bi bi-chat-fill"></i> 发私信</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            @await Component.InvokeAsync("ArticleBrowserRankList")
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{ 
+    <script>
+        let loading = false;
+        function doThumb(id, element) {
+            if (loading) return
+            loading = true;
+            $.post(`/article/thumb/${id}`, function (data) {
+                loading = false;
+                if (data.code === 0) {
+                    let $count = $(element).find("span");
+                    let current = Number($count.html()) || 0;
+
+                    // 添加/移除 active 样式
+                    let $icon = $(element).find("i");
+                    if ($icon.hasClass("text-warning")) {
+                        $icon.removeClass("text-warning");
+                        $count.html(--current); // 取消赞
+                    } else {
+                        $icon.addClass("text-warning");
+                        $count.html(++current); // 点赞
+                    }
+                } else {
+                    layer.msg(data.msg);
+                }
+            });
+        }
+        function doFavorite(id, element) {
+            if (loading || $(element).text() === "已收藏") return
+            loading = true;
+            $.post(`/favorite/createOrRemove?articleId=${id}`, function (data) {
+                loading = false;
+                if (data.code === 0) {
+                    $(element).text("已收藏");
+                }
+                layer.msg(data.msg);
+            });
+        }
+        function doQuote(quoteId, nickName) {
+            $("#quote_id").val(quoteId);
+            $("#quote_user").html("@@" + nickName);
+            $("#comment-body").focus();
+        }
+        function doComment() {
+            let $dom = $("#comment-body");
+            let body = $dom.val();
+            if (!/^(.|\r|\n){1,450}$/.test(body.trim())) {
+                layer.msg("评论字符串长度[1, 450]");
+                $dom.focus();
+                return false;
+            }
+            return true;
+        }
+        function doCommentThumb(id, element) {
+            if (loading) return
+            loading = true;
+            $.post(`/comment/thumbupCreateOrRemove/${id}`, function (data) {
+                loading = false;
+                if (data.code === 0) {
+                    let $count = $(element).find("span");
+                    let current = Number($count.html()) || 0;
+
+                    // 添加/移除 active 样式
+                    let $icon = $(element).find("i");
+                    if ($icon.hasClass("text-warning")) {
+                        $icon.removeClass("text-warning");
+                        $count.html(--current); // 取消赞
+                    } else {
+                        $icon.addClass("text-warning");
+                        $count.html(++current); // 点赞
+                    }
+                } else {
+                    layer.msg(data.msg);
+                }
+            });
+        }
+        function doDeleteComment(id, element) {
+            if (loading) return
+            loading = true;
+            $.post(`/comment/delete/${id}`, function (res) {
+                loading = false;
+                if (res.code === 0) {
+                    $(element).parent().parent().remove();
+                } else {
+                    layer.msg(res.msg);
+                }
+            })
+        }
+        function doFollow(followId, element) {
+            if (loading) return;
+            loading = true;
+            $.post(`/follow/createOrRemove?followId=${followId}`, function (res) {
+                loading = false;
+                if (res.code === 0) {
+                    $(element).hide().siblings(".follow_item").show();
+                } else {
+                    layer.msg(res.msg);
+                }
+            });
+        }
+    </script>
+}

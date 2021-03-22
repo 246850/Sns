@@ -1,0 +1,57 @@
+﻿@model AccountLoginRequestDTO
+@{
+    ViewData["Title"] = "登录账号";
+}
+<ul class="nav mb-3">
+    <li class="nav-item">
+        <a class="nav-link active" asp-controller="account" asp-action="login">登录</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="account" asp-action="register">注册</a>
+    </li>
+</ul>
+<div class="tab-content mb-3">
+    <div class="tab-pane fade show active">
+        <form id="form_0" method="post" asp-controller="account" asp-action="login">
+            <div class="form-group">
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                <label for="@Html.IdFor(model=> model.Account)" onkeydown="return doBanInputSapce(event)">账号</label>
+                <input type="text" class="form-control" asp-for="Account">
+            </div>
+            <div class="form-group">
+                <label for="@Html.IdFor(model=> model.Password)">密码</label>
+                <input type="password" class="form-control" asp-for="Password" onkeydown="return doBanInputSapce(event)">
+            </div>
+            <div class="text-danger">@Html.ValidationSummary()</div>
+            <button type="submit" class="btn btn-primary">登录</button>
+        </form>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/jquery/validation/jquery.validate.min.js"></script>
+    <script src="~/jquery/validation/jquery-validate.bootstrap-tooltip.js"></script>
+    <script src="~/jquery/validation/additional-methods.js"></script>
+    <script src="~/jquery/validation/messages_zh.min.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $("#form_0").validate({
+            rules: {
+                "@Html.IdFor(model=> model.Account)": {
+                    required: true,
+                    alphanumeric: true,
+                    rangelength: [4, 20]
+                },
+                "@Html.IdFor(model=> model.Password)": {
+                    required: true,
+                    password: true,
+                    rangelength: [6, 20]
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        })
+    })
+    </script>
+}

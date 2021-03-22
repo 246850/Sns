@@ -1,0 +1,94 @@
+﻿@model IPagedList<ArticleListResultDTO>
+@{ 
+    ViewData["Title"] = "记录知识，交流心得";
+    TopicOfArticleResultDTO topicModel = ViewBag.TopicModel as TopicOfArticleResultDTO;
+    List<AccountListResultDTO> accounts = (List<AccountListResultDTO>)ViewBag.TopNAccountList;
+    List<ArticleListResultDTO> thumbups = (List<ArticleListResultDTO>)ViewBag.TopNThumbupList;
+    List<ArticleListResultDTO> comments = (List<ArticleListResultDTO>)ViewBag.TopNCommentList;
+}
+<style type="text/css">
+    .card-title {font-size: 1.25rem;font-weight: bold; margin-bottom:.5rem}
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 p-0 col-sm-12">
+            @if (topicModel != null)
+            {
+                <a asp-controller="article" asp-action="list" asp-route-topicName="@topicModel.Name" title="@topicModel.Name" class="mr-3 mb-3 text-primary"><strong>#@($"{topicModel.Name}({topicModel.ArticleCount})")</strong></a>
+                <hr />
+            }
+            @foreach (ArticleListResultDTO item in Model)
+            {
+                <div class="card border-0 mb-3">
+                    <div class="card-body p-0">
+                        <h3 class="card-title"><a asp-controller="article" asp-action="detail" asp-route-id="@item.Id" title="@item.Title" class="text-decoration-none">@item.Title</a></h3>
+                        <article class="card-text mb-1">
+                            @item.SubTitle
+                        </article>
+                        <span>
+                            <a asp-controller="people" asp-action="article" asp-route-id="@item.AccountInfo.Id" class="card-link text-secondary">@item.AccountInfo.NickName</a>
+                            <span class="card-link text-secondary"><i class="bi bi-hand-thumbs-up-fill"></i>@item.ThumbupCount</span>
+                            <span class="card-link text-secondary"><i class="bi bi-eye-fill"></i>@item.ViewCount</span>
+                            <a asp-controller="article" asp-action="detail" asp-route-id="@item.Id" asp-fragment="comment" class="card-link text-secondary">@item.CommentCount 条评论</a>
+                        </span>
+                    </div>
+                </div>
+            }
+            @await Component.InvokeAsync("AspNetCorePager", Model.Pager)
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0">
+                <div class="card-body p-0">
+                    <section class="card-text mb-1">
+                        <small class="text-muted d-block text-center mb-1">记录知识，交流心得！</small>
+                        <a asp-controller="article" asp-action="publish" class="btn btn-dark btn-block" title="记录知识，交流心得">
+                            <i class="bi bi-pencil-square"></i> 写文章
+                        </a>
+                    </section>
+                </div>
+            </div>
+            <hr />
+            @await Component.InvokeAsync("HotTopic", 15)
+            <hr />
+            <strong class="d-block mb-3">
+                最新加入用户
+                <a title="更多" class="text-primary" asp-controller="people" asp-action="all"><i class="bi bi-chevron-double-right"></i></a>
+            </strong>
+            <ol class="widget-list">
+                @foreach (var item in accounts)
+                {
+                    <li>
+                        <a class="d-inline-block text-decoration-none" asp-controller="people" asp-action="article" asp-route-id="@item.Id">
+                            <img src="@item.Avatar" alt="@item.NickName" class="avatar rounded-circle">
+                            <span class="ml-2">@item.NickName</span>
+                        </a>
+                    </li>
+                }
+            </ol>
+            <hr />
+            <strong class="d-block mb-3">
+                10天点赞排行
+            </strong>
+            <ol class="widget-list">
+                @foreach (var item in thumbups)
+                {
+                    <li>
+                        <a class="text-decoration-none text-wrap" asp-controller="article" asp-action="detail" asp-route-id="@item.Id">@item.Title</a>
+                    </li>
+                }
+            </ol>
+            <hr />
+            <strong class="d-block mb-3">
+                48小时评论排行
+            </strong>
+            <ol class="widget-list">
+                @foreach (var item in comments)
+                {
+                    <li>
+                        <a class="text-decoration-none text-wrap" asp-controller="article" asp-action="detail" asp-route-id="@item.Id">@item.Title</a>
+                    </li>
+                }
+            </ol>
+        </div>
+    </div>
+</div>

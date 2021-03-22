@@ -1,0 +1,46 @@
+﻿@model List<string>
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>修改头像 - 端桥铺网</title>
+    <link rel="stylesheet" href="~/bootstrap/dist/css/bootstrap.min.css" />
+    <style>        
+        .head {width:50px; height:50px}
+    </style>
+</head>
+<body class="p-3">
+    <div class="d-flex flex-row flex-wrap">
+        @foreach(var item in Model)
+        {
+        <div class="mr-3 mb-3">
+            <a class="d-block text-center" href="javascript:void(0)" onclick="doModifyHead('@item')">
+                <img src="~/heads/@item" class="head rounded" />
+            </a>
+        </div>
+        }
+    </div>
+    
+    <script src="~/jquery/dist/jquery.min.js"></script>
+    <script>
+        let loading = false;
+        function doModifyHead(name) {
+            if (loading) return;
+            loading = true;
+            $.post(`/my/modifyHead?name=${name}`, function (res) {
+                loading = false;
+                if (res.code === 0) {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                } else {
+                    parent.layer.msg(res.msg);
+                }
+            })
+        }
+    </script>
+</body>
+</html>

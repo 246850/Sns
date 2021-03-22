@@ -1,0 +1,38 @@
+﻿<ul class="nav mb-3" id="my_tab">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="my" asp-action="article">文章</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="my" asp-action="follow">关注</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="my" asp-action="fans">粉丝</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="my" asp-action="comment">我评</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="my" asp-action="thumbup">我赞</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link d-none d-md-block" asp-controller="my" asp-action="favorite">收藏</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link d-none d-md-block" asp-controller="my" asp-action="info">设置</a>
+    </li>
+</ul>
+
+<style>        
+    .nav-link{border-bottom: 2px solid #fff}
+</style>
+<script>
+    window.onload = function () {
+        let href = window.location.href.toLowerCase();
+        $("#my_tab").find("a").each(function () {
+            var current = $(this).attr("href").toLowerCase();
+            if (href.indexOf(current) > 0) {
+                $(this).addClass("active");
+            }
+        });
+    }
+</script>

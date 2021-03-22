@@ -1,0 +1,26 @@
+﻿<ul class="nav mb-3" id="my_tab">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="people" asp-action="article" asp-route-id="@ViewBag.Id">文章</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="people" asp-action="follow" asp-route-id="@ViewBag.Id">关注</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="people" asp-action="fans" asp-route-id="@ViewBag.Id">粉丝</a>
+    </li>
+</ul>
+
+<style>
+    .nav-link {border-bottom: 2px solid #fff}
+</style>
+<script>
+    window.onload = function () {
+        let href = window.location.href.toLowerCase();
+        $("#my_tab").find("a").each(function () {
+            var current = $(this).attr("href").toLowerCase();
+            if (href.indexOf(current) > 0) {
+                $(this).addClass("active");
+            }
+        });
+    }
+</script>

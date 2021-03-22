@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Calamus.AspNetCore\Calamus.AspNetCore.csproj" />
+    <ProjectReference Include="..\Calamus.Caching\Calamus.Caching.csproj" />
+    <ProjectReference Include="..\Calamus.Data\Calamus.Data.csproj" />
+    <ProjectReference Include="..\Calamus.Infrastructure\Calamus.Infrastructure.csproj" />
+    <ProjectReference Include="..\Calamus.Result\Calamus.Result.csproj" />
+    <ProjectReference Include="..\Sns.Domains\Sns.Domains.csproj" />
+    <ProjectReference Include="..\Sns.IServices\Sns.IServices.csproj" />
+  </ItemGroup>
+
+</Project>

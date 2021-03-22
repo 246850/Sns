@@ -1,0 +1,254 @@
+﻿@model ArticleCreateOrUpdateRequestDTO
+@{
+    ViewData["Title"] = "编辑文章";
+    List<TopicListResultDTO> topics = (List<TopicListResultDTO>)ViewBag.Topics;
+}
+<!-- Include stylesheet -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link href="~/katex/katex.css" rel="stylesheet" />
+<style>
+    #editor-container img{max-width:100%}
+    .ql-container{font-size:inherit}
+    .ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre, .ql-editor blockquote { margin-bottom: 1rem}
+    .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6{margin-bottom:.5rem}
+    .ql-snow .ql-editor blockquote{border-left: 4px solid #ccc; padding:15px 15px; padding-right:0; background: url(../../images/blockquote.gif) no-repeat 15px -5px; margin-top:inherit; margin-bottom:inherit}
+    .ql-editor ol, .ql-editor ul{padding-left:0}
+    .ql-editor li:not(.ql-direction-rtl)::before{text-align:left}
+    .ql-snow .ql-editor h3 {font-size:1.75rem}
+    .ql-snow .ql-editor h2 {font-size:2rem}
+    .ql-snow .ql-editor h1 {font-size:2.5rem}
+    .ql-snow .ql-editor h4 {font-size:1.5rem}
+    .ql-snow .ql-editor h5 {font-size:1.25rem} 
+    .ql-snow .ql-editor h6{font-size:1rem}
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 p-0 col-sm-12">
+            <div class="card border-0 mb-3">
+                <div class="card-body p-0">
+                    <strong class="d-block">发表文章</strong>
+                    <small class="d-block text-muted mb-3">记录知识，交流心得。</small>
+                    <section class="card-text">
+                        <form id="form_0" asp-controller="article" asp-action="createOrUpdate" method="post">
+                            <div class="form-group">
+                                <label for="@Html.IdFor(model=> model.Title)">*标题</label>
+                                <input asp-for="Title" type="text" class="form-control" required placeholder="" onkeydown="return doBanInputSapce(event)">
+                                <small class="form-text text-muted">概括主题，简洁明了</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="@Html.IdFor(model=> model.TopicName)">话题</label>
+                                <input asp-for="TopicName" type="text" class="form-control" required placeholder="" onkeydown="return doBanInputSapce(event)">
+                                <small class="form-text text-muted">自定义话题或选择热门话题，合适的话题更易被他人发现</small>
+                            </div>
+                            <div class="form-group">
+                                <!-- Create the editor container -->
+                                <div id="standalone-container">
+                                    <div id="toolbar-container">
+                                        <span class="ql-formats">
+                                            @*<select class="ql-font"></select>*@
+                                            <select class="ql-header" title="标题">
+                                                <option value="1">标题1</option>
+                                                <option value="2">标题2</option>
+                                                <option value="3">标题3</option>
+                                                <option value="4">标题4</option>
+                                                <option value="5">标题5</option>
+                                                <option value="6">标题6</option>
+                                            </select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold" title="粗体"></button>
+                                            <button class="ql-italic" title="斜体"></button>
+                                            <button class="ql-underline" title="下划线"></button>
+                                            <button class="ql-strike" title="删除线"></button>
+                                        </span>
+                                        @*<span class="ql-formats">
+                                                <select class="ql-color"></select>
+                                                <select class="ql-background"></select>
+                                            </span>*@
+                                        <span class="ql-formats">
+                                            @*<button class="ql-header" value="1"></button>
+                                                <button class="ql-header" value="2"></button>*@
+                                            <button class="ql-blockquote" title="引用"></button>
+                                            @*<button class="ql-code-block" title="代码块"></button>*@
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered" title="有序列表"></button>
+                                            <button class="ql-list" value="bullet" title="无须列表"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link" title="链接"></button>
+                                            <button class="ql-image" title="上传图片">
+                                            </button>
+                                            <input type="file" accept="image/png, image/gif, image/jpeg, image/bmp" id="insert-image" onchange="onImageChange(this)" style="display:none" />
+                                        </span>
+                                        @*<span class="ql-formats">
+                                                <button class="ql-direction" value="rtl"></button>
+                                                <select class="ql-align"></select>
+                                            </span>*@
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub" title="下标"></button>
+                                            <button class="ql-script" value="super" title="上标"></button>
+                                            @*<button class="ql-video"></button>*@
+                                            <button class="ql-formula" title="公式"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean" title="清除格式"></button>
+                                        </span>
+                                    </div>
+                                    <div id="editor-container" style="height:600px">@Html.Raw(Model.Body)</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Id" />
+                                <button type="submit" class="btn btn-primary">发表</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 d-none d-md-block">
+            <strong class="d-block mb-3">
+                热议话题
+                <a title="更多" class="text-primary" asp-controller="topic" asp-action="hot"><i class="bi bi-chevron-double-right"></i></a>
+            </strong>
+            <section class="d-flex flex-row flex-wrap">
+                @foreach (var item in topics)
+                {
+                    <a title="@item.Name" class="mr-3 mb-3" href="javascript:void(0)" onclick="doSelectTopic('@item.Name')">@($"{item.Name}({item.ArticleCount})")</a>
+                }
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/katex/katex.min.js"></script>
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="~/jquery/validation/jquery.validate.min.js"></script>
+    <script src="~/jquery/validation/jquery-validate.bootstrap-tooltip.js"></script>
+    <script src="~/jquery/validation/additional-methods.js"></script>
+    <script src="~/jquery/validation/messages_zh.min.js"></script>
+    <!-- Initialize Quill editor -->
+    <script>
+    Quill.prototype.getHtml = function () {
+        return this.container.firstChild.innerHTML;
+    }
+    var quill = new Quill('#editor-container', {
+        debug: 'warn',
+        theme: 'snow',
+        placeholder: '此处编辑内容',
+        modules: {
+            formula: true,
+            toolbar: {
+                container: "#toolbar-container",
+                handlers: {
+                    "image": function () {
+                        $("#insert-image").trigger("click");
+                    }
+                }
+            }
+        }
+    });
+
+    let uploading = false;
+    function onImageChange(dom) {
+        let files = dom.files;
+        if (!files || !files.length || files.length <= 0 || uploading) return;
+        if (files[0].size > 1024 * 1024 * 1) {
+            alert("图片大小不能超过1M");
+            return false;
+        }
+        uploading = true;
+        //使用FileReader读取图片成base64编码，再插入到编辑框中
+        let reader = new FileReader();
+        reader.onload = e => {
+            let url = e.target.result;
+            let index;
+            $.ajax({
+                type: "post",
+                url: "/article/uploadImage",
+                data: { base64: url },
+                dataType: "json",
+                beforeSend: function () {
+                    index = layer.load();
+                },
+                success: function (res) {
+                    if (res.code === 0) {
+                        //将图片插入需要获取当前光标的位置，参数为是否要求焦点在编辑器上
+                        let selection = quill.getSelection(true);
+                        //调用insertEmbed 将图片插入到编辑器
+                        quill.insertEmbed(selection.index, "image", res.data.host + res.data.path);
+                        dom.value = "";
+                    } else {
+                        layer.msg(res.msg);
+                    }
+                },
+                error: function () {
+                    layer.msg(JSON.stringify(arguments));
+                },
+                complete: function () {
+                    uploading = false;
+                    layer.closeAll('loading');
+                }
+            });
+        };
+        reader.readAsDataURL(files[0]);
+    }
+
+    function doSelectTopic(name) {
+        $("#@Html.IdFor(model=> model.TopicName)").val(name);
+    }
+
+    $(function () {
+        let loading = false
+        $("#form_0").validate({
+            rules: {
+                "@Html.IdFor(model=> model.Title)": {
+                    required: true,
+                    rangelength: [2, 30]
+                },
+                "@Html.IdFor(model=> model.TopicName)": {
+                    required: false,
+                    rangelength: [1, 20]
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    type: "post",
+                    url: "/article/createOrUpdate",
+                    data: { id:$("#@Html.IdFor(model=> model.Id)").val(), title: $("#@Html.IdFor(model=> model.Title)").val(), topicName: $("#@Html.IdFor(model=> model.TopicName)").val(), body: quill.getHtml() },
+                    dataType: "json",
+                    beforeSend: function () {
+                        let text = quill.getText(1, 10000);
+                        let length = text.trim().length;
+                        if (length <= 10) {
+                            layer.msg("内容篇幅过短！");
+                            return false;
+                        }
+                        if (!loading) {
+                            loading = true;
+                            return true;
+                        }
+                        return false;
+                    },
+                    success: function (res) {
+                        if (res.code === 0) {
+                            window.location.href = `/article/detail/${res.data}`;
+                        }
+                    },
+                    error: function () {
+                        console.dir(arguments);
+                        layer.msg("出现异常，请稍候再试");
+                    },
+                    complete: function () {
+                        loading = false;
+                    }
+                });
+            }
+        });
+    });
+    </script>
+}
+

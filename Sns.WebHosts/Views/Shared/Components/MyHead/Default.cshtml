@@ -1,0 +1,38 @@
+﻿@model AccountDetailResultDTO
+<style>
+    p{margin-bottom:.3rem}
+    .nav-link.active{border-bottom: 2px solid #007bff}
+</style>
+<div class="card mb-3 border-0">
+    <div class="row no-gutters">
+        <div class="col-sm-2 d-none d-md-block">
+            <a href="javascript:void(0)" class="d-block text-decoration-none" onclick="doModifyHead()">
+                <img src="@Model.Avatar" class="rounded-circle border border-dark" alt="@Model.NickName">
+                <span class="d-block mt-1 text-primary ml-3">修改头像</span>
+            </a>
+        </div>
+        <div class="col-sm-10">
+            <div class="card-body p-0">
+                <h5 class="card-title"><strong>@Model.NickName</strong></h5>
+                <p class="card-text">@Model.Intro</p>
+                <p class="card-text"><small class="text-muted">注册于：@Model.CreateTime.ToString("yyyy年MM月dd日")</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function doModifyHead() {
+        layer.open({
+            title: false,
+            type: 2,
+            area: ['60%', '60%'],
+            shadeClose: true, //点击遮罩关闭
+            skin: 'layui-layer-rim', //加上边框
+            content: '/my/modifyhead',
+            closeBtn: 0,
+            end: function () {
+                window.location.reload();
+            }
+        });
+    }
+</script>
